@@ -1,59 +1,28 @@
 /* eslint-disable prettier/prettier */
+
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './schemas/user.schema';
 import { Model } from 'mongoose';
+import { User } from './schemas/user.schema';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
-  
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
+    const createUser = new this.userModel(createUserDto);
+    return createUser.save();
+  }
 
-  //   ------------- practiced below --------------------------------\\\
-  //   users: {
-  //     id: number;
-  //     name: string;
-  //     email: string;
-  //     isMarried: boolean;
-  //     gender: string;
-  //   }[] = [
-  //     {
-  //       id: 1,
-  //       name: 'John Doe',
-  //       email: 'john.doe@example.com',
-  //       isMarried: false,
-  //       gender: 'Male',
-  //     },
-  //     {
-  //       id: 2,
-  //       name: 'Jane Doe',
-  //       email: 'jane.doe@example.com',
-  //       isMarried: true,
-  //       gender: 'Female',
-  //     },
-  //     {
-  //       id: 3,
-  //       name: 'Alice Doe',
-  //       email: 'alice.doe@example.com',
-  //       isMarried: false,
-  //       gender: 'Female',
-  //     },
-  //   ];
-  //   getUsers() {
-  //     return this.users;
-  //   }
+  async findAllUsers(): Promise<User[]> {
+    return this.userModel.find().exec();
+  }
 
-  //   getUserById(id: number) {
-  //     return this.users.find((x) => x.id == id);
-  //   }
+  async findOneUser(id: string): Promise<User> {
+    return this.userModel.findById(id);
+  }
 
-  //   createUser(user: {
-  //     id: number;
-  //     name: string;
-  //     email: string;
-  //     isMarried: boolean;
-  //     gender: string;
-  //   }): void {
-  //     this.users.push(user);
-  //   }
+  async updateUser(id: string, user: CreateUserDto): Promise<User> {
+    return this.userModel.findByIdAndUpdate(id, user, { new: true });
+  }
 }

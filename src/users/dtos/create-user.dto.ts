@@ -2,7 +2,6 @@
 import {
   IsBoolean,
   IsEmail,
-  IsInt,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -11,8 +10,6 @@ import {
 
 /* eslint-disable prettier/prettier */
 export class CreateUserDto {
-  @IsInt()
-  id: number;
   @Length(4, 20)
   @IsString()
   @IsNotEmpty()
