@@ -17,6 +17,9 @@ export class CreateUserDto {
   @IsString({ message: 'Must be a string' })
   @IsEmail({}, { message: 'Not a valid email' })
   email: string;
+  @Length(2, 5)
+  @IsString()
+  password: string;
   @IsBoolean()
   isMarried: boolean;
   @IsString()

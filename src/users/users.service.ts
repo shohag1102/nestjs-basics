@@ -22,6 +22,13 @@ export class UsersService {
     return this.userModel.findById(id);
   }
 
+  async findUserByEmailandPassword(
+    email: string,
+    password: string,
+  ): Promise<any> {
+    return this.userModel.findOne({ email: email, password: password });
+  }
+
   async updateUser(id: string, user: CreateUserDto): Promise<User> {
     return this.userModel.findByIdAndUpdate(id, user, { new: true });
   }

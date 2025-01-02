@@ -3,9 +3,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-// import { UsersController } from './users/users.controller';
-// import { UsersService } from './users/users.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +12,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       'mongodb+srv://selise:selise@selise-attachment.jq2br.mongodb.net/',
     ),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
