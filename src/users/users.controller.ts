@@ -7,10 +7,12 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -26,10 +28,12 @@ export class UsersController {
     return this.userService.createUser(userDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   async getAllUsers() {
     return this.userService.findAllUsers();
   }
+
   @Get(':id')
   async getUserById(@Param('id') id: string) {
     return this.userService.findOneUser(id);
