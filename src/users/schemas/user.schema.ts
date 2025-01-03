@@ -4,7 +4,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema({ timestamps: true })
 export class User {
   @Prop()
-  _id?: string;
+  id?: string;
 
   @Prop()
   name: string;
